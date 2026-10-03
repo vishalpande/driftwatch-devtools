@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>Driftwatch test page</title>
+<style>body{font-family:system-ui;max-width:520px;margin:40px auto}button{margin:4px;padding:8px 12px}pre{background:#eee;padding:10px}</style>
+<script>
+  // Minimal fake Redux store. The extension looks for BOTH of these globals.
+  let state = { items: 3, total: 499, currency: 'INR' };
+  window.__redux_store__ = { getState: () => state };
+  window.__REDUX_DEVTOOLS_EXTENSION__ = {};
+</script></head>
+<body>
+  <h2>Driftwatch test page</h2>
+  <p>UI store state:</p><pre id="state"></pre>
+  <button onclick="call('fetch','in-sync')">fetch → in sync</button>
+  <button onclick="call('fetch','drift')">fetch → drift</button>
+  <button onclick="call('xhr','in-sync')">XHR → in sync</button>
+  <button onclick="call('xhr','drift')">XHR → drift</button>
+  <script>
+    document.getElementById('state').textContent = JSON.stringify(state, null, 2);
+    function call(kind, name) {
+      const url = `/api/${name}.json`;
+      if (kind === 'fetch') fetch(url).then(r => r.json());
+      else { const x = new XMLHttpRequest(); x.open('GET', url); x.send(); }
+    }
+  </script>
+</body></html>

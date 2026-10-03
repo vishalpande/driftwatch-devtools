@@ -1,0 +1,22 @@
+{
+  "manifest_version": 3,
+  "name": "Driftwatch",
+  "version": "1.0.1",
+  "description": "Detects UI vs API data drift at the field level, in real time. No instrumentation needed.",
+  "host_permissions": ["<all_urls>"],
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["interceptor.js"],
+      "run_at": "document_start",
+      "world": "MAIN",
+      "all_frames": false
+    },
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content-script.js"],
+      "run_at": "document_start"
+    }
+  ],
+  "devtools_page": "devtools.html"
+}

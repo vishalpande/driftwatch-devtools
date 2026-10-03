@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>DOM drift test</title>
+<style>body{font-family:system-ui;max-width:520px;margin:40px auto}button{margin:4px;padding:8px 12px}</style></head>
+<body>
+  <h2>Cart (no store, DOM only)</h2>
+  <p>Items: <span data-testid="items">3</span></p>
+  <p>Total: <span class="total">₹499.00</span></p>
+  <p>Status: <span id="status">pending</span></p>
+  <button onclick="fetch('/api/drift.json').then(r=>r.json())">fetch → drift</button>
+  <button onclick="fetch('/api/in-sync.json').then(r=>r.json())">fetch → in sync</button>
+</body></html>
